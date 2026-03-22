@@ -201,9 +201,7 @@
                 alt="">
 
             <div id="firstScreen" style="position: absolute;width: 320px; height: 480px; top: 0;">
-                <!-- <img src="./images/screenOneTxtOne.png"
-                    style="position: absolute;width: 290px; left: 0;right: 0;margin: 0 auto;top: 160px;animation: lastOne .7s ease;"
-                    alt=""> -->
+
                 <img id="textOne" src="./images/text1.png"
                     style="position: absolute;width: 290px; left: 0;right: 0;margin: 0 auto;top: 160px;animation: lastOne .7s ease;"
                     alt="">
@@ -221,6 +219,13 @@
                     style="position: absolute;width: 320px; height: 480px;top: 0;left: 0;right: 0;" alt="">
             </div>
 
+            <div id="bowls"
+                style="display: none; position: absolute;width: 320px; height: 480px; top: 0;animation: opacityDiv .7s ease;">
+                <img src="./images/bowl2.png" style="position: absolute;z-index: 99; bottom: 5px;left: 0;right: 0;margin: 0 auto;" alt="">
+                <img src="./images/bowl1.png" style="position: absolute;bottom: 10px;z-index: 999; left: 0;right: 0;margin: 0 auto;" alt="">
+            </div>
+
+
             <img id="timer" src="./images/time.png"
                 style="display: none; position: absolute; top: 20px; right: 20px; width: 50px; height: 50px; z-index: 10;"
                 alt="">
@@ -232,6 +237,8 @@
             </div>
             <img id="scoreCounter1" src="./images/yourscore.png"
                 style="display: none; position: absolute;top: 20px; left: 20px; width: 50px; height: 50px;" alt="">0
+
+
 
             <div id="congratulations"
                 style="display: none;top: 0;  position: absolute;width: 320px; height: 480px;animation: opacityDiv .5s ease;">
@@ -286,6 +293,7 @@
         let timer = document.getElementById('timer');
         let timerCounter = document.getElementById('timerCounter');
         let myAudio = document.getElementById('myAudio');
+        let bowls = document.getElementById('bowls');
         let timerInterval = null;
 
         function startCountdown(duration) {
@@ -301,13 +309,6 @@
                 }
                 if (remaining < 0) {
                     clearInterval(timerInterval);
-                    // timerCounter.style.display = 'none';
-                    // timer.style.display = 'none';
-
-                    // scoreCounter.style.display = 'none';
-                    // scoreCounter1.style.display = 'none';
-
-                    // mangoSlice.style.display = 'none';
                 }
             }, 1000);
         }
@@ -367,15 +368,17 @@
             return Math.hypot(px - projX, py - projY);
         }
 
-        function createMangoSplit(rect, containerRect, src) {
+        //now its fine, but muze us productBun ko bowl me collect krna hai opacity 1 rahegi, bowl bottom center me arrange ki hai
+        function createMangoSplit(rect, containerRect) {
             const x = rect.left - containerRect.left;
             const y = rect.top - containerRect.top;
 
+            // First, show the mango splitting into two parts
             const leftHalf = document.createElement('img');
             const rightHalf = document.createElement('img');
 
             [leftHalf, rightHalf].forEach(el => {
-                el.src = src;
+                el.src = './images/mango.png';
                 el.className = 'mango-image';
                 el.style.position = 'absolute';
                 el.style.top = `${y}px`;
@@ -396,8 +399,56 @@
 
             leftHalf.addEventListener('animationend', () => leftHalf.remove());
             rightHalf.addEventListener('animationend', () => rightHalf.remove());
+
+//productBun ki image thode der se aa rhi hai, uska delay thoda kam krdo
+
+            setTimeout(() => {
+                const newImg = document.createElement('img');
+                newImg.src = './images/productBun.png';
+                newImg.className = 'mango-image';
+                newImg.style.position = 'absolute';
+                // Start from the cut position x, then animate to random bowl position
+                const startLeft = x;
+                const centerLeft = 135;
+                const randomOffset = (Math.random() - 0.5) * 60; // -30 to 30
+                const endLeft = centerLeft + randomOffset;
+                newImg.style.left = `${startLeft}px`;
+                newImg.style.top = `${y}px`;
+                newImg.style.width = '40px';
+                newImg.style.height = '100px';
+                newImg.style.zIndex = '99'; // Ensure it appears above the bowl
+                newImg.style.opacity = '1';
+                // Random rotation 5-10 degrees
+                const maxDeg = Math.floor(Math.random() * 3) + 15; // Randomly 15, 16, or 17
+                const randomDeg = (Math.random() - 0.5) * 5 * maxDeg; // -maxDeg to maxDeg
+                newImg.style.transform = `rotate(${randomDeg}deg)`;
+                mangoSlice.appendChild(newImg);
+
+                // Animate falling to bowl
+                const startTop = y;
+                const endTop = 350; // Position in the bowl (480 - 10 - 120)
+                const duration = 1000; // 1 second
+                const startTime = Date.now();
+                const animate = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const currentTop = startTop + (endTop - startTop) * progress;
+                    const currentLeft = startLeft + (endLeft - startLeft) * progress;
+                    newImg.style.top = `${currentTop}px`;
+                    newImg.style.left = `${currentLeft}px`;
+                    newImg.style.opacity = '1'; // Keep opacity 1
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        // Keep the image in the bowl with opacity 1 until the game ends
+                        // Removed the remove timeout to keep opacity 1
+                    }
+                };
+                requestAnimationFrame(animate);
+            }, 400); // Reduced delay to show productBun sooner
         }
 
+        //mango slice cut hona chahiye two part me, uske bad me o productBun banana hai, baki sb thik hai 
         function cutMangoesBySwipe(startX, startY, endX, endY) {
             const mangoes = document.querySelectorAll('#mangoSlice img.mango-image:not(.cut)');
             const containerRect = mangoSlice.getBoundingClientRect();
@@ -407,19 +458,18 @@
                 const rect = mango.getBoundingClientRect();
                 const cx = rect.left + rect.width / 2 - containerRect.left;
                 const cy = rect.top + rect.height / 2 - containerRect.top;
-                const dist = segmentDistance(cx, cy, startX, startY, endX, endY);
-
-                if (dist < 30) {
+                const distStart = Math.hypot(cx - startX, cy - startY);
+                const distEnd = Math.hypot(cx - endX, cy - endY);
+                if (distStart < 50 || distEnd < 50) {
                     mangoesCut += 1;
                     mango.classList.add('cut');
                     mango.style.opacity = '0';
 
-                    createMangoSplit(rect, containerRect, mango.src);
+                    createMangoSplit(rect, containerRect);
                     setTimeout(() => mango.remove(), 0);
                 }
             });
 
-            // Increment score by 1 for the entire swipe, regardless of how many mangoes were cut
             if (mangoesCut > 0) {
                 score += 1;
                 updateScore();
@@ -431,6 +481,7 @@
             updateScore();
             scoreCounter.style.display = 'block';
             scoreCounter1.style.display = 'block';
+            bowls.style.display = 'block';
 
             const mangoSliceDiv = document.getElementById('mangoSlice');
             mangoSliceDiv.innerHTML = ''; // Clear previous mangoes
@@ -458,7 +509,6 @@
 
             // Show last screen after all mangoes have fallen (around 16 seconds total)
             setTimeout(() => {
-                mangoSlice.style.display = 'none';
 
                 timer.style.opacity = 0;
                 timer.style.transition = '0.5s ease';
@@ -468,6 +518,10 @@
                 scoreCounter.style.transition = '0.5s ease';
                 scoreCounter1.style.opacity = 0;
                 scoreCounter1.style.transition = '0.5s ease';
+                bowls.style.opacity = 0;
+                bowls.style.transition = '0.5s ease';
+                mangoSlice.style.opacity = 0;
+                mangoSlice.style.transition = '0.5s ease';
 
                 setTimeout(() => {
                     mangoSlice.style.display = 'none';
@@ -475,8 +529,10 @@
                     timerCounter.style.display = 'none';
                     scoreCounter.style.display = 'none';
                     scoreCounter1.style.display = 'none';
-                    showLastScreen();
+                    bowls.style.display = 'none';
                 }, 500);
+
+                showLastScreen();
 
                 myAudio.muted = true;
                 myAudio.pause();
@@ -539,7 +595,7 @@
                 setTimeout(() => {
                     congratulations.style.display = 'none';
                     lastScreen.style.display = 'block';
-                   
+
 
                     setTimeout(() => {
                         product.style.animation = 'productTilt 1s ease-in-out alternate infinite';
@@ -559,6 +615,7 @@
                 setTimeout(() => {
                     scoreResult.style.display = 'none';
                     scoreCounter.style.display = 'none';
+                    bowls.style.display = 'none';
                     lastScreen.style.display = 'block';
                     setTimeout(() => {
                         document.getElementById('product').style.animation = 'productTilt 1s ease-in-out alternate infinite';

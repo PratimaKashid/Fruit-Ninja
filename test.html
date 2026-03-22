@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        html, body {
+        html,
+        body {
             overflow: hidden;
             margin: 0;
             padding: 0;
         }
+
         body {
             text-align: center;
             font-family: Arial;
@@ -34,12 +36,14 @@
             }
         }
 
-        @keyframes product {
+        @keyframes lastOne1 {
             0% {
                 opacity: 0;
+                transform: scale(0);
+
             }
 
-            40% {
+            85% {
                 opacity: 0;
                 transform: scale(0);
 
@@ -51,15 +55,42 @@
             }
         }
 
+
+        @keyframes product {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+                top: 100px;
+            }
+
+            20% {
+                opacity: 1;
+                transform: scale(2);
+                top: 100px;
+            }
+
+            85% {
+                opacity: 1;
+                transform: scale(2);
+                top: 100px;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+                top: 185px;
+            }
+
+        }
+
         @keyframes lastTwo {
             0% {
                 opacity: 0;
             }
 
-            70% {
+            90% {
                 opacity: 0;
                 transform: scale(0);
-
             }
 
             100% {
@@ -121,6 +152,7 @@
 
         @keyframes falling {
             0% {
+                top: 0;
                 opacity: 1;
             }
 
@@ -156,8 +188,8 @@
 
         .mango-image {
             position: absolute;
-            width: 70px;
-            height: 70px;
+            width: 90px;
+            height: 90px;
         }
     </style>
 </head>
@@ -169,8 +201,12 @@
                 alt="">
 
             <div id="firstScreen" style="position: absolute;width: 320px; height: 480px; top: 0;">
-                <img src="./images/screenOneTxtOne.png"
+
+                <img id="textOne" src="./images/text1.png"
                     style="position: absolute;width: 290px; left: 0;right: 0;margin: 0 auto;top: 160px;animation: lastOne .7s ease;"
+                    alt="">
+                <img id="textTwo" src="./images/text2.png"
+                    style="display:none; position: absolute;width: 290px; left: 0;right: 0;margin: 0 auto;top: 160px;animation: lastOne .7s ease;"
                     alt="">
                 <img id="playBtn" src="./images/letsplay.png"
                     style="position: absolute;width: 135px; left: 0;right: 0;margin: 0 auto;top: 350px;animation: letsplay 1.2s ease-in-out;"
@@ -182,6 +218,13 @@
                 <img src="./images/bg2.jpg"
                     style="position: absolute;width: 320px; height: 480px;top: 0;left: 0;right: 0;" alt="">
             </div>
+
+            <div id="bowls"
+                style="display: none; position: absolute;width: 320px; height: 480px; top: 0;animation: opacityDiv .7s ease;">
+                <img src="./images/bowl1.png" style="position: absolute;bottom: 10px;left: 0;right: 0;margin: 0 auto;" alt="">
+                <img src="./images/bowl2.png" style="position: absolute;bottom: 10px;left: 0;right: 0;margin: 0 auto;" alt="">
+            </div>
+
 
             <img id="timer" src="./images/time.png"
                 style="display: none; position: absolute; top: 20px; right: 20px; width: 50px; height: 50px; z-index: 10;"
@@ -195,12 +238,15 @@
             <img id="scoreCounter1" src="./images/yourscore.png"
                 style="display: none; position: absolute;top: 20px; left: 20px; width: 50px; height: 50px;" alt="">0
 
+
+
             <div id="congratulations"
                 style="display: none;top: 0;  position: absolute;width: 320px; height: 480px;animation: opacityDiv .5s ease;">
                 <img src="./images/conrats-screen.jpg"
                     style="width: 320px; height: 480px; position: absolute;top:0;left:0; margin-bottom: 10px;"
                     alt="Score">
             </div>
+
             <div id="scoreResult"
                 style="display: none; position: absolute; color: #fff; font-weight: bold; font-size: 20px; text-align: center; z-index: 20; top:0; border-radius: 12px; width: 320px; height: 480px;animation: opacityDiv .7s ease;">
                 <img src="./images/conrats-screen2.jpg"
@@ -213,21 +259,22 @@
             </div>
 
 
-
-            <div id="lastScreen" style="display: none; position: absolute;width: 320px; height: 480px;top: 0;">
+            <div id="lastScreen"
+                style="overflow: hidden;display: none; position: absolute;width: 320px; height: 480px;top: 0;">
                 <a href="https://bimbobakeriesindia.com/brands/harvest-gold" target="_blank">
                     <img src="./images/lastScreentext1.png"
-                        style="position: absolute;width: 200px; left: 0;right: 0;margin: 0 auto;top: 70px;animation: lastOne .7s ease;"
+                        style="position: absolute;width: 200px; left: 0;right: 0;margin: 0 auto;top: 70px;animation: lastOne1 2.5s ease;"
                         alt="">
                     <img id="product" src="./images/product.png"
-                        style="position: absolute;width: 160px; left: 0;right: 0;margin: 0 auto;top: 185px;animation: product 1.2s ease-in-out;"
+                        style="position: absolute;width: 160px; left: 0;right: 0;margin: 0 auto;top: 185px;animation: product 2s ease-in-out;"
                         alt="">
                     <img id="tryNow" src="./images/lastScreenText2.png"
-                        style="position: absolute;width: 130px; left: 0;right: 0;margin: 0 auto;top: 435px;animation: lastTwo 1.7s ease-in-out;"
+                        style="position: absolute;width: 130px; left: 0;right: 0;margin: 0 auto;top: 435px;animation: lastTwo 3s ease-in-out;"
                         alt="">
                 </a>
             </div>
 
+            <audio id="myAudio" src="./images/music.mpeg" muted></audio>
 
             <div id="closeBtn" style="position: absolute; top: 5px; right: 5px; width: 15px; height: 15px;z-index: 9999; background-color: transparent; border: 1px solid #fff; cursor: pointer;border-radius: 50%; color: #fff;display: flex;
     align-items: center;justify-content: center;">
@@ -245,6 +292,8 @@
         let mangoSlice = document.getElementById('mangoSlice');
         let timer = document.getElementById('timer');
         let timerCounter = document.getElementById('timerCounter');
+        let myAudio = document.getElementById('myAudio');
+        let bowls = document.getElementById('bowls');
         let timerInterval = null;
 
         function startCountdown(duration) {
@@ -260,16 +309,18 @@
                 }
                 if (remaining < 0) {
                     clearInterval(timerInterval);
-                    // timerCounter.style.display = 'none';
-                    // timer.style.display = 'none';
-
-                    // scoreCounter.style.display = 'none';
-                    // scoreCounter1.style.display = 'none';
-
-                    // mangoSlice.style.display = 'none';
                 }
             }, 1000);
         }
+
+        let textOne = document.getElementById('textOne');
+        let textTwo = document.getElementById('textTwo');
+
+        setTimeout(() => {
+            textOne.style.opacity = 0;
+            textOne.style.transition = '0.5s ease';
+            textTwo.style.display = 'block';
+        }, 2000);
 
         document.getElementById('firstScreen').addEventListener('click', function () {
             firstScreen.style.display = 'none';
@@ -282,12 +333,16 @@
                 mangoSlice.style.display = 'block';
                 startCountdown(10);
                 createFallingMangoes();
+                myAudio.muted = false;
+                myAudio.play();
             }, 3000);
         });
 
 
         document.getElementById('closeBtn').addEventListener('click', function () {
             document.querySelector('.container').style.display = 'none';
+            myAudio.muted = true;
+            myAudio.pause();
         });
 
         setTimeout(() => {
@@ -325,8 +380,8 @@
                 el.className = 'mango-image';
                 el.style.position = 'absolute';
                 el.style.top = `${y}px`;
-                el.style.width = '70px';
-                el.style.height = '70px';
+                el.style.width = '90px';
+                el.style.height = '90px';
                 el.style.zIndex = '15';
                 el.style.opacity = '1';
                 mangoSlice.appendChild(el);
@@ -344,6 +399,7 @@
             rightHalf.addEventListener('animationend', () => rightHalf.remove());
         }
 
+        //
         function cutMangoesBySwipe(startX, startY, endX, endY) {
             const mangoes = document.querySelectorAll('#mangoSlice img.mango-image:not(.cut)');
             const containerRect = mangoSlice.getBoundingClientRect();
@@ -377,12 +433,13 @@
             updateScore();
             scoreCounter.style.display = 'block';
             scoreCounter1.style.display = 'block';
+            bowls.style.display = 'block';
 
             const mangoSliceDiv = document.getElementById('mangoSlice');
             mangoSliceDiv.innerHTML = ''; // Clear previous mangoes
 
-            // Create exactly 10 mangoes with delays
-            for (let i = 0; i < 10; i++) {
+            // Create exactly 25 mangoes with delays
+            for (let i = 0; i < 25; i++) {
                 setTimeout(() => {
                     const mango = document.createElement('img');
                     mango.src = './images/mango.png';
@@ -392,7 +449,7 @@
                     const column = Math.floor(Math.random() * 4);
                     const randomLeft = column * 80 + 10;
                     const randomTop = Math.random() * (480 - 70);
-                    const animationDuration = Math.random() * 3000 + 3000;
+                    const animationDuration = Math.random() * 2500 + 2500;
 
                     mango.style.left = randomLeft + 'px';
                     mango.style.top = randomTop + 'px';
@@ -424,7 +481,8 @@
                     showLastScreen();
                 }, 500);
 
-
+                myAudio.muted = true;
+                myAudio.pause();
             }, 11500);
         }
 
@@ -469,9 +527,12 @@
         function showLastScreen() {
             clearInterval(timerInterval);
 
-            if (score === 10) {
+            //scrore = 10 and greather than 10 both are same for showing congratulations message
+            if (score === 10 || score > 10) {
                 // Show congratulations message
                 const congratulations = document.getElementById('congratulations');
+                let product = document.getElementById('product')
+
                 congratulations.style.display = 'block';
                 scoreCounter.style.display = 'none';
 
@@ -481,12 +542,16 @@
                 setTimeout(() => {
                     congratulations.style.display = 'none';
                     lastScreen.style.display = 'block';
+
+
                     setTimeout(() => {
-                        document.getElementById('product').style.animation = 'productTilt 1s ease-in-out alternate infinite';
-                    }, 1700);
+                        product.style.animation = 'productTilt 1s ease-in-out alternate infinite';
+                    }, 2100);
+
+
                     setTimeout(() => {
                         document.getElementById('tryNow').style.animation = 'btnPulse 1s ease-in-out alternate infinite';
-                    }, 2000);
+                    }, 3100);
                 }, 3000); // Show congratulations for 3 seconds
             } else {
                 // Show score result overlay for partial score
@@ -500,7 +565,7 @@
                     lastScreen.style.display = 'block';
                     setTimeout(() => {
                         document.getElementById('product').style.animation = 'productTilt 1s ease-in-out alternate infinite';
-                    }, 1700);
+                    }, 2010);
                     setTimeout(() => {
                         document.getElementById('tryNow').style.animation = 'btnPulse 1s ease-in-out alternate infinite';
                     }, 2000);
