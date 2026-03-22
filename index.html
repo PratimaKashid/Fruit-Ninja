@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        html,
+        body {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             text-align: center;
             font-family: Arial;
@@ -13,6 +20,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+
         }
 
         @keyframes lastOne {
@@ -115,7 +123,7 @@
 
         @keyframes falling {
             0% {
-                top: 0;
+                top:0;
                 opacity: 1;
             }
 
@@ -320,8 +328,8 @@
                 el.className = 'mango-image';
                 el.style.position = 'absolute';
                 el.style.top = `${y}px`;
-                el.style.width = '80px';
-                el.style.height = '80px';
+                el.style.width = '90px';
+                el.style.height = '90px';
                 el.style.zIndex = '15';
                 el.style.opacity = '1';
                 mangoSlice.appendChild(el);
@@ -376,18 +384,21 @@
             const mangoSliceDiv = document.getElementById('mangoSlice');
             mangoSliceDiv.innerHTML = ''; // Clear previous mangoes
 
-            // Create exactly 10 mangoes with delays
-            for (let i = 0; i < 10; i++) {
+            // Create exactly 25 mangoes with delays
+            for (let i = 0; i < 25; i++) {
                 setTimeout(() => {
                     const mango = document.createElement('img');
                     mango.src = './images/mango.png';
                     mango.className = 'mango-image';
                     mango.setAttribute('draggable', 'false');
 
-                    const randomLeft = Math.random() * (320 - 60);
-                    const animationDuration = Math.random() * 4500 + 6500;
+                    const column = Math.floor(Math.random() * 4);
+                    const randomLeft = column * 80 + 10;
+                    const randomTop = Math.random() * (480 - 70);
+                    const animationDuration = Math.random() * 2500 + 2500;
 
                     mango.style.left = randomLeft + 'px';
+                    mango.style.top = randomTop + 'px';
                     mango.style.animation = `falling ${animationDuration}ms linear forwards`;
 
                     mangoSliceDiv.appendChild(mango);
@@ -461,7 +472,8 @@
         function showLastScreen() {
             clearInterval(timerInterval);
 
-            if (score === 10) {
+            //scrore = 10 and greather than 10 both are same for showing congratulations message
+            if (score === 10 || score > 10) {
                 // Show congratulations message
                 const congratulations = document.getElementById('congratulations');
                 congratulations.style.display = 'block';
