@@ -55,24 +55,32 @@
             }
         }
 
+
         @keyframes product {
             0% {
-                opacity: 1;
-                transform: scale(2.3);
-                top: 100px
+                opacity: 0;
+                transform: scale(0);
+                top: 100px;
             }
 
-            90% {
+            20% {
                 opacity: 1;
-                transform: scale(2.3);
-                top: 100px
+                transform: scale(2);
+                top: 100px;
+            }
+
+            85% {
+                opacity: 1;
+                transform: scale(2);
+                top: 100px;
             }
 
             100% {
-                opacity: 1;
                 transform: scale(1);
+                opacity: 1;
                 top: 185px;
             }
+
         }
 
         @keyframes lastTwo {
@@ -244,16 +252,17 @@
             </div>
 
 
-            <div id="lastScreen" style="display: none; position: absolute;width: 320px; height: 480px;top: 0;">
+            <div id="lastScreen"
+                style="overflow: hidden;display: none; position: absolute;width: 320px; height: 480px;top: 0;">
                 <a href="https://bimbobakeriesindia.com/brands/harvest-gold" target="_blank">
                     <img src="./images/lastScreentext1.png"
-                        style="position: absolute;width: 200px; left: 0;right: 0;margin: 0 auto;top: 70px;animation: lastOne1 2s ease;"
+                        style="position: absolute;width: 200px; left: 0;right: 0;margin: 0 auto;top: 70px;animation: lastOne1 2.5s ease;"
                         alt="">
                     <img id="product" src="./images/product.png"
-                        style="position: absolute;width: 160px; left: 0;right: 0;margin: 0 auto;top: 185px;animation: product 1.5s linear;"
+                        style="position: absolute;width: 160px; left: 0;right: 0;margin: 0 auto;top: 185px;animation: product 2s ease-in-out;"
                         alt="">
                     <img id="tryNow" src="./images/lastScreenText2.png"
-                        style="position: absolute;width: 130px; left: 0;right: 0;margin: 0 auto;top: 435px;animation: lastTwo 2.5s ease-in-out;"
+                        style="position: absolute;width: 130px; left: 0;right: 0;margin: 0 auto;top: 435px;animation: lastTwo 3s ease-in-out;"
                         alt="">
                 </a>
             </div>
@@ -519,6 +528,8 @@
             if (score === 10 || score > 10) {
                 // Show congratulations message
                 const congratulations = document.getElementById('congratulations');
+                let product = document.getElementById('product')
+
                 congratulations.style.display = 'block';
                 scoreCounter.style.display = 'none';
 
@@ -528,12 +539,16 @@
                 setTimeout(() => {
                     congratulations.style.display = 'none';
                     lastScreen.style.display = 'block';
+                   
+
                     setTimeout(() => {
-                        document.getElementById('product').style.animation = 'productTilt 1s ease-in-out alternate infinite';
-                    }, 1700);
+                        product.style.animation = 'productTilt 1s ease-in-out alternate infinite';
+                    }, 2100);
+
+
                     setTimeout(() => {
                         document.getElementById('tryNow').style.animation = 'btnPulse 1s ease-in-out alternate infinite';
-                    }, 2600);
+                    }, 3100);
                 }, 3000); // Show congratulations for 3 seconds
             } else {
                 // Show score result overlay for partial score
@@ -547,7 +562,7 @@
                     lastScreen.style.display = 'block';
                     setTimeout(() => {
                         document.getElementById('product').style.animation = 'productTilt 1s ease-in-out alternate infinite';
-                    }, 1700);
+                    }, 2010);
                     setTimeout(() => {
                         document.getElementById('tryNow').style.animation = 'btnPulse 1s ease-in-out alternate infinite';
                     }, 2000);
