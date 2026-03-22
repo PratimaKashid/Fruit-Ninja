@@ -36,12 +36,14 @@
             }
         }
 
-        @keyframes product {
+        @keyframes lastOne1 {
             0% {
                 opacity: 0;
+                transform: scale(0);
+
             }
 
-            40% {
+            85% {
                 opacity: 0;
                 transform: scale(0);
 
@@ -53,15 +55,34 @@
             }
         }
 
+        @keyframes product {
+            0% {
+                opacity: 1;
+                transform: scale(2.3);
+                top: 100px
+            }
+
+            90% {
+                opacity: 1;
+                transform: scale(2.3);
+                top: 100px
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                top: 185px;
+            }
+        }
+
         @keyframes lastTwo {
             0% {
                 opacity: 0;
             }
 
-            70% {
+            90% {
                 opacity: 0;
                 transform: scale(0);
-
             }
 
             100% {
@@ -123,7 +144,7 @@
 
         @keyframes falling {
             0% {
-                top:0;
+                top: 0;
                 opacity: 1;
             }
 
@@ -226,17 +247,18 @@
             <div id="lastScreen" style="display: none; position: absolute;width: 320px; height: 480px;top: 0;">
                 <a href="https://bimbobakeriesindia.com/brands/harvest-gold" target="_blank">
                     <img src="./images/lastScreentext1.png"
-                        style="position: absolute;width: 200px; left: 0;right: 0;margin: 0 auto;top: 70px;animation: lastOne .7s ease;"
+                        style="position: absolute;width: 200px; left: 0;right: 0;margin: 0 auto;top: 70px;animation: lastOne1 2s ease;"
                         alt="">
                     <img id="product" src="./images/product.png"
-                        style="position: absolute;width: 160px; left: 0;right: 0;margin: 0 auto;top: 185px;animation: product 1.2s ease-in-out;"
+                        style="position: absolute;width: 160px; left: 0;right: 0;margin: 0 auto;top: 185px;animation: product 1.5s linear;"
                         alt="">
                     <img id="tryNow" src="./images/lastScreenText2.png"
-                        style="position: absolute;width: 130px; left: 0;right: 0;margin: 0 auto;top: 435px;animation: lastTwo 1.7s ease-in-out;"
+                        style="position: absolute;width: 130px; left: 0;right: 0;margin: 0 auto;top: 435px;animation: lastTwo 2.5s ease-in-out;"
                         alt="">
                 </a>
             </div>
 
+            <audio id="myAudio" src="./images/music.mpeg" muted></audio>
 
             <div id="closeBtn" style="position: absolute; top: 5px; right: 5px; width: 15px; height: 15px;z-index: 9999; background-color: transparent; border: 1px solid #fff; cursor: pointer;border-radius: 50%; color: #fff;display: flex;
     align-items: center;justify-content: center;">
@@ -254,6 +276,7 @@
         let mangoSlice = document.getElementById('mangoSlice');
         let timer = document.getElementById('timer');
         let timerCounter = document.getElementById('timerCounter');
+        let myAudio = document.getElementById('myAudio');
         let timerInterval = null;
 
         function startCountdown(duration) {
@@ -284,9 +307,9 @@
         let textTwo = document.getElementById('textTwo');
 
         setTimeout(() => {
-            textOne.style.opacity=0;
-            textOne.style.transition='0.5s ease';
-            textTwo.style.display='block';
+            textOne.style.opacity = 0;
+            textOne.style.transition = '0.5s ease';
+            textTwo.style.display = 'block';
         }, 2000);
 
         document.getElementById('firstScreen').addEventListener('click', function () {
@@ -300,12 +323,16 @@
                 mangoSlice.style.display = 'block';
                 startCountdown(10);
                 createFallingMangoes();
+                myAudio.muted = false;
+                myAudio.play();
             }, 3000);
         });
 
 
         document.getElementById('closeBtn').addEventListener('click', function () {
             document.querySelector('.container').style.display = 'none';
+            myAudio.muted = true;
+            myAudio.pause();
         });
 
         setTimeout(() => {
@@ -442,7 +469,8 @@
                     showLastScreen();
                 }, 500);
 
-
+                myAudio.muted = true;
+                myAudio.pause();
             }, 11500);
         }
 
@@ -505,7 +533,7 @@
                     }, 1700);
                     setTimeout(() => {
                         document.getElementById('tryNow').style.animation = 'btnPulse 1s ease-in-out alternate infinite';
-                    }, 2000);
+                    }, 2600);
                 }, 3000); // Show congratulations for 3 seconds
             } else {
                 // Show score result overlay for partial score
