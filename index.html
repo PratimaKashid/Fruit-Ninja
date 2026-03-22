@@ -172,8 +172,14 @@
                 alt="">
 
             <div id="firstScreen" style="position: absolute;width: 320px; height: 480px; top: 0;">
-                <img src="./images/screenOneTxtOne.png"
+                <!-- <img src="./images/screenOneTxtOne.png"
                     style="position: absolute;width: 290px; left: 0;right: 0;margin: 0 auto;top: 160px;animation: lastOne .7s ease;"
+                    alt=""> -->
+                <img id="textOne" src="./images/text1.png"
+                    style="position: absolute;width: 290px; left: 0;right: 0;margin: 0 auto;top: 160px;animation: lastOne .7s ease;"
+                    alt="">
+                <img id="textTwo" src="./images/text2.png"
+                    style="display:none; position: absolute;width: 290px; left: 0;right: 0;margin: 0 auto;top: 160px;animation: lastOne .7s ease;"
                     alt="">
                 <img id="playBtn" src="./images/letsplay.png"
                     style="position: absolute;width: 135px; left: 0;right: 0;margin: 0 auto;top: 350px;animation: letsplay 1.2s ease-in-out;"
@@ -273,6 +279,15 @@
                 }
             }, 1000);
         }
+
+        let textOne = document.getElementById('textOne');
+        let textTwo = document.getElementById('textTwo');
+
+        setTimeout(() => {
+            textOne.style.opacity=0;
+            textOne.style.transition='0.5s ease';
+            textTwo.style.display='block';
+        }, 2000);
 
         document.getElementById('firstScreen').addEventListener('click', function () {
             firstScreen.style.display = 'none';
