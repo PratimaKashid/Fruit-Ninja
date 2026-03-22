@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            text-align: center;
+            font-family: Arial;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+
+        }
+
+        @keyframes lastOne {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes product {
+            0% {
+                opacity: 0;
+            }
+
+            40% {
+                opacity: 0;
+                transform: scale(0);
+
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes lastTwo {
+            0% {
+                opacity: 0;
+            }
+
+            70% {
+                opacity: 0;
+                transform: scale(0);
+
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes letsplay {
+            0% {
+                opacity: 0;
+            }
+
+            40% {
+                opacity: 0;
+                transform: scale(0);
+
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes btnPulse {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(.9);
+            }
+        }
+
+        @keyframes productTilt {
+            0% {
+                transform: rotate(0deg) scale(.95);
+            }
+
+            50% {
+                transform: rotate(10deg) scale(1);
+            }
+
+            100% {
+                transform: rotate(0deg) scale(.95);
+            }
+        }
+
+        @keyframes opacityDiv {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes falling {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 480px;
+                opacity: 0;
+            }
+        }
+
+        @keyframes splitLeft {
+            0% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(-30px) translateY(20px) rotate(-20deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes splitRight {
+            0% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(30px) translateY(20px) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
+        .mango-image {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="width: 320px; height:480px; margin: 0 auto;overflow: hidden;">
+        <div class="innerContainer" style="position: absolute;width: 320px; height: 480px;">
+            <img src="./images/bg.jpg" style="position: absolute;width: 320px; height: 480px;top: 0;left: 0;right: 0;"
+                alt="">
+
+            <div id="firstScreen" style="position: absolute;width: 320px; height: 480px; top: 0;">
+                <img src="./images/screenOneTxtOne.png"
+                    style="position: absolute;width: 290px; left: 0;right: 0;margin: 0 auto;top: 160px;animation: lastOne .7s ease;"
+                    alt="">
+                <img id="playBtn" src="./images/letsplay.png"
+                    style="position: absolute;width: 135px; left: 0;right: 0;margin: 0 auto;top: 350px;animation: letsplay 1.2s ease-in-out;"
+                    alt="">
+            </div>
+
+            <div id="secondScreen"
+                style="display: none; position: absolute;width: 320px; height: 480px; top: 0;animation: opacityDiv .7s ease;">
+                <img src="./images/bg2.jpg"
+                    style="position: absolute;width: 320px; height: 480px;top: 0;left: 0;right: 0;" alt="">
+            </div>
+
+            <img id="timer" src="./images/time.png"
+                style="display: none; position: absolute; top: 20px; right: 20px; width: 50px; height: 50px; z-index: 10;"
+                alt="">
+            <div id="timerCounter"
+                style="display: none; position: absolute; top: 22px; right: 24px; width: 42px; height: 42px; z-index: 11; color: #f65f1e; font-weight: bold; text-align: center; line-height: 30px; font-size: 20px;">
+                10 Sec</div>
+            <div id="scoreCounter"
+                style="display: none; position: absolute; top: 23px; left: 40px; color: #f65f1e; font-weight: bold; text-align: center; line-height: 30px; font-size: 20px; z-index: 11;">
+            </div>
+            <img id="scoreCounter1" src="./images/yourscore.png"
+                style="display: none; position: absolute;top: 20px; left: 20px; width: 50px; height: 50px;" alt="">0
+
+            <div id="congratulations"
+                style="display: none;top: 0;  position: absolute;width: 320px; height: 480px;animation: opacityDiv .5s ease;">
+                <img src="./images/conrats-screen.jpg"
+                    style="width: 320px; height: 480px; position: absolute;top:0;left:0; margin-bottom: 10px;"
+                    alt="Score">
+            </div>
+            <div id="scoreResult"
+                style="display: none; position: absolute; color: #fff; font-weight: bold; font-size: 20px; text-align: center; z-index: 20; top:0; border-radius: 12px; width: 320px; height: 480px;animation: opacityDiv .7s ease;">
+                <img src="./images/conrats-screen2.jpg"
+                    style="width: 320px; height: 480px; position: absolute;top:0;left:0;" alt="Score">
+                <div id="scoreResultText" style="color: #f65f1e;z-index: 9999;position: absolute;text-shadow: 2px 0px 0px #fdfcfc;top: 244px;
+                    font-size: 35px;left:250px; font-weight: 900;"></div>
+            </div>
+            <div id="mangoSlice"
+                style="display: none; position: absolute;width: 320px; height: 480px; top: 0;animation: opacityDiv .7s ease; overflow: hidden;">
+            </div>
+
+
+
+            <div id="lastScreen" style="display: none; position: absolute;width: 320px; height: 480px;top: 0;">
+                <a href="https://bimbobakeriesindia.com/brands/harvest-gold" target="_blank">
+                    <img src="./images/lastScreentext1.png"
+                        style="position: absolute;width: 200px; left: 0;right: 0;margin: 0 auto;top: 70px;animation: lastOne .7s ease;"
+                        alt="">
+                    <img id="product" src="./images/product.png"
+                        style="position: absolute;width: 160px; left: 0;right: 0;margin: 0 auto;top: 185px;animation: product 1.2s ease-in-out;"
+                        alt="">
+                    <img id="tryNow" src="./images/lastScreenText2.png"
+                        style="position: absolute;width: 130px; left: 0;right: 0;margin: 0 auto;top: 435px;animation: lastTwo 1.7s ease-in-out;"
+                        alt="">
+                </a>
+            </div>
+
+
+            <div id="closeBtn" style="position: absolute; top: 5px; right: 5px; width: 15px; height: 15px;z-index: 9999; background-color: transparent; border: 1px solid #fff; cursor: pointer;border-radius: 50%; color: #fff;display: flex;
+    align-items: center;justify-content: center;">
+                &times;
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        let lastScreen = document.getElementById('lastScreen');
+        let firstScreen = document.getElementById('firstScreen');
+        let secondScreen = document.getElementById('secondScreen');
+        let mangoSlice = document.getElementById('mangoSlice');
+        let timer = document.getElementById('timer');
+        let timerCounter = document.getElementById('timerCounter');
+        let timerInterval = null;
+
+        function startCountdown(duration) {
+            let remaining = duration;
+            timerCounter.textContent = remaining;
+            timerCounter.style.display = 'block';
+            timer.style.display = 'block';
+
+            timerInterval = setInterval(() => {
+                remaining -= 1;
+                if (remaining >= 0) {
+                    timerCounter.textContent = remaining;
+                }
+                if (remaining < 0) {
+                    clearInterval(timerInterval);
+                    // timerCounter.style.display = 'none';
+                    // timer.style.display = 'none';
+
+                    // scoreCounter.style.display = 'none';
+                    // scoreCounter1.style.display = 'none';
+
+                    // mangoSlice.style.display = 'none';
+                }
+            }, 1000);
+        }
+
+        document.getElementById('firstScreen').addEventListener('click', function () {
+            firstScreen.style.display = 'none';
+            secondScreen.style.display = 'block';
+
+            setTimeout(() => {
+                secondScreen.style.opacity = 0;
+                secondScreen.style.transition = '0.5s ease';
+
+                mangoSlice.style.display = 'block';
+                startCountdown(10);
+                createFallingMangoes();
+            }, 3000);
+        });
+
+
+        document.getElementById('closeBtn').addEventListener('click', function () {
+            document.querySelector('.container').style.display = 'none';
+        });
+
+        setTimeout(() => {
+            document.getElementById('playBtn').style.animation = 'btnPulse 1s ease-in-out alternate infinite';
+        }, 1300);
+
+
+        let scoreCounter = document.getElementById('scoreCounter');
+        let scoreCounter1 = document.getElementById('scoreCounter1');
+        let score = 0;
+
+        function updateScore() {
+            scoreCounter.textContent = score;
+        }
+
+        function segmentDistance(px, py, x1, y1, x2, y2) {
+            const dx = x2 - x1;
+            const dy = y2 - y1;
+            if (dx === 0 && dy === 0) return Math.hypot(px - x1, py - y1);
+            const t = Math.max(0, Math.min(1, ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy)));
+            const projX = x1 + t * dx;
+            const projY = y1 + t * dy;
+            return Math.hypot(px - projX, py - projY);
+        }
+
+        function createMangoSplit(rect, containerRect, src) {
+            const x = rect.left - containerRect.left;
+            const y = rect.top - containerRect.top;
+
+            const leftHalf = document.createElement('img');
+            const rightHalf = document.createElement('img');
+
+            [leftHalf, rightHalf].forEach(el => {
+                el.src = src;
+                el.className = 'mango-image';
+                el.style.position = 'absolute';
+                el.style.top = `${y}px`;
+                el.style.width = '70px';
+                el.style.height = '70px';
+                el.style.zIndex = '15';
+                el.style.opacity = '1';
+                mangoSlice.appendChild(el);
+            });
+
+            leftHalf.style.left = `${x}px`;
+            leftHalf.style.clipPath = 'inset(0 50% 0 0)';
+            leftHalf.style.animation = 'splitLeft 0.8s ease-out forwards';
+
+            rightHalf.style.left = `${x}px`;
+            rightHalf.style.clipPath = 'inset(0 0 0 50%)';
+            rightHalf.style.animation = 'splitRight 0.8s ease-out forwards';
+
+            leftHalf.addEventListener('animationend', () => leftHalf.remove());
+            rightHalf.addEventListener('animationend', () => rightHalf.remove());
+        }
+
+        function cutMangoesBySwipe(startX, startY, endX, endY) {
+            const mangoes = document.querySelectorAll('#mangoSlice img.mango-image:not(.cut)');
+            const containerRect = mangoSlice.getBoundingClientRect();
+            let mangoesCut = 0;
+
+            mangoes.forEach(mango => {
+                const rect = mango.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2 - containerRect.left;
+                const cy = rect.top + rect.height / 2 - containerRect.top;
+                const dist = segmentDistance(cx, cy, startX, startY, endX, endY);
+
+                if (dist < 30) {
+                    mangoesCut += 1;
+                    mango.classList.add('cut');
+                    mango.style.opacity = '0';
+
+                    createMangoSplit(rect, containerRect, mango.src);
+                    setTimeout(() => mango.remove(), 0);
+                }
+            });
+
+            // Increment score by 1 for the entire swipe, regardless of how many mangoes were cut
+            if (mangoesCut > 0) {
+                score += 1;
+                updateScore();
+            }
+        }
+
+        function createFallingMangoes() {
+            score = 0;
+            updateScore();
+            scoreCounter.style.display = 'block';
+            scoreCounter1.style.display = 'block';
+
+            const mangoSliceDiv = document.getElementById('mangoSlice');
+            mangoSliceDiv.innerHTML = ''; // Clear previous mangoes
+
+            // Create exactly 10 mangoes with delays
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const mango = document.createElement('img');
+                    mango.src = './images/mango.png';
+                    mango.className = 'mango-image';
+                    mango.setAttribute('draggable', 'false');
+
+                    const column = Math.floor(Math.random() * 4);
+                    const randomLeft = column * 80 + 10;
+                    const randomTop = Math.random() * (480 - 70);
+                    const animationDuration = Math.random() * 4500 + 6500;
+
+                    mango.style.left = randomLeft + 'px';
+                    mango.style.top = randomTop + 'px';
+                    mango.style.animation = `falling ${animationDuration}ms linear forwards`;
+
+                    mangoSliceDiv.appendChild(mango);
+                }, i * 900); // Create each mango with 1 second delay
+            }
+
+            // Show last screen after all mangoes have fallen (around 16 seconds total)
+            setTimeout(() => {
+                mangoSlice.style.display = 'none';
+
+                timer.style.opacity = 0;
+                timer.style.transition = '0.5s ease';
+                timerCounter.style.opacity = 0;
+                timerCounter.style.transition = '0.5s ease';
+                scoreCounter.style.opacity = 0;
+                scoreCounter.style.transition = '0.5s ease';
+                scoreCounter1.style.opacity = 0;
+                scoreCounter1.style.transition = '0.5s ease';
+
+                setTimeout(() => {
+                    mangoSlice.style.display = 'none';
+                    timer.style.display = 'none';
+                    timerCounter.style.display = 'none';
+                    scoreCounter.style.display = 'none';
+                    scoreCounter1.style.display = 'none';
+                    showLastScreen();
+                }, 500);
+
+
+            }, 11500);
+        }
+
+        let isTouchSwipe = false;
+
+        mangoSlice.addEventListener('touchstart', function (e) {
+            isTouchSwipe = true;
+            const touch = e.changedTouches[0];
+            mangoSlice.dataset.swipeStartX = touch.clientX;
+            mangoSlice.dataset.swipeStartY = touch.clientY;
+        });
+
+        mangoSlice.addEventListener('touchend', function (e) {
+            const touch = e.changedTouches[0];
+            const startX = parseFloat(mangoSlice.dataset.swipeStartX) - mangoSlice.getBoundingClientRect().left;
+            const startY = parseFloat(mangoSlice.dataset.swipeStartY) - mangoSlice.getBoundingClientRect().top;
+            const endX = touch.clientX - mangoSlice.getBoundingClientRect().left;
+            const endY = touch.clientY - mangoSlice.getBoundingClientRect().top;
+            cutMangoesBySwipe(startX, startY, endX, endY);
+
+            // prevent synthetic mouse events on some devices
+            setTimeout(() => { isTouchSwipe = false; }, 100);
+        });
+
+        let mouseStartX = 0;
+        let mouseStartY = 0;
+        mangoSlice.addEventListener('mousedown', function (e) {
+            if (isTouchSwipe) return;
+            mouseStartX = e.clientX;
+            mouseStartY = e.clientY;
+        });
+
+        mangoSlice.addEventListener('mouseup', function (e) {
+            if (isTouchSwipe) return;
+            const startX = mouseStartX - mangoSlice.getBoundingClientRect().left;
+            const startY = mouseStartY - mangoSlice.getBoundingClientRect().top;
+            const endX = e.clientX - mangoSlice.getBoundingClientRect().left;
+            const endY = e.clientY - mangoSlice.getBoundingClientRect().top;
+            cutMangoesBySwipe(startX, startY, endX, endY);
+        });
+
+        function showLastScreen() {
+            clearInterval(timerInterval);
+
+            if (score === 10) {
+                // Show congratulations message
+                const congratulations = document.getElementById('congratulations');
+                congratulations.style.display = 'block';
+                scoreCounter.style.display = 'none';
+
+                timerCounter.style.display = 'none';
+                timer.style.display = 'none';
+
+                setTimeout(() => {
+                    congratulations.style.display = 'none';
+                    lastScreen.style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('product').style.animation = 'productTilt 1s ease-in-out alternate infinite';
+                    }, 1700);
+                    setTimeout(() => {
+                        document.getElementById('tryNow').style.animation = 'btnPulse 1s ease-in-out alternate infinite';
+                    }, 2000);
+                }, 3000); // Show congratulations for 3 seconds
+            } else {
+                // Show score result overlay for partial score
+                const scoreResult = document.getElementById('scoreResult');
+                document.getElementById('scoreResultText').textContent = ` ${score}`;
+                scoreResult.style.display = 'block';
+
+                setTimeout(() => {
+                    scoreResult.style.display = 'none';
+                    scoreCounter.style.display = 'none';
+                    lastScreen.style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('product').style.animation = 'productTilt 1s ease-in-out alternate infinite';
+                    }, 1700);
+                    setTimeout(() => {
+                        document.getElementById('tryNow').style.animation = 'btnPulse 1s ease-in-out alternate infinite';
+                    }, 2000);
+                }, 3000); // Show score result for 3 seconds
+            }
+        }
+
+
+    </script>
+
+</body>
+
+</html>
