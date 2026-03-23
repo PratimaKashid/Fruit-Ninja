@@ -188,8 +188,8 @@
 
         .mango-image {
             position: absolute;
-            width: 90px;
-            height: 90px;
+            width:100px;
+            /* height: 90px; */
         }
     </style>
 </head>
@@ -404,7 +404,7 @@
 
             setTimeout(() => {
                 const newImg = document.createElement('img');
-                newImg.src = './images/productBun.png';
+                newImg.src = './images/product.png';
                 newImg.className = 'mango-image';
                 newImg.style.position = 'absolute';
                 // Start from the cut position x, then animate to random bowl position
@@ -414,8 +414,8 @@
                 const endLeft = centerLeft + randomOffset;
                 newImg.style.left = `${startLeft}px`;
                 newImg.style.top = `${y}px`;
-                newImg.style.width = '40px';
-                newImg.style.height = '100px';
+                newImg.style.width = '60px';
+                // newImg.style.height = '100px';
                 newImg.style.zIndex = '99'; // Ensure it appears above the bowl
                 newImg.style.opacity = '1';
                 // Random rotation 5-10 degrees
@@ -448,7 +448,7 @@
             }, 400); // Reduced delay to show productBun sooner
         }
 
-        //mango slice cut hona chahiye two part me, uske bad me o productBun banana hai, baki sb thik hai 
+        //swipe left to right swipe pe mangoes slice working fine but right to left swipe pe thoda issue aa rha tha
         function cutMangoesBySwipe(startX, startY, endX, endY) {
             const mangoes = document.querySelectorAll('#mangoSlice img.mango-image:not(.cut)');
             const containerRect = mangoSlice.getBoundingClientRect();
@@ -458,9 +458,9 @@
                 const rect = mango.getBoundingClientRect();
                 const cx = rect.left + rect.width / 2 - containerRect.left;
                 const cy = rect.top + rect.height / 2 - containerRect.top;
-                const distStart = Math.hypot(cx - startX, cy - startY);
-                const distEnd = Math.hypot(cx - endX, cy - endY);
-                if (distStart < 50 || distEnd < 50) {
+                // Use segmentDistance to check if mango is along the swipe path
+                const dist = segmentDistance(cx, cy, startX, startY, endX, endY);
+                if (dist < 50) {
                     mangoesCut += 1;
                     mango.classList.add('cut');
                     mango.style.opacity = '0';
@@ -504,7 +504,7 @@
                     mango.style.animation = `falling ${animationDuration}ms linear forwards`;
 
                     mangoSliceDiv.appendChild(mango);
-                }, i * 900); // Create each mango with 1 second delay
+                }, i * 800); // Create each mango with 1 second delay
             }
 
             // Show last screen after all mangoes have fallen (around 16 seconds total)
@@ -518,6 +518,7 @@
                 scoreCounter.style.transition = '0.5s ease';
                 scoreCounter1.style.opacity = 0;
                 scoreCounter1.style.transition = '0.5s ease';
+
                 bowls.style.opacity = 0;
                 bowls.style.transition = '0.5s ease';
                 mangoSlice.style.opacity = 0;
@@ -525,11 +526,11 @@
 
                 setTimeout(() => {
                     mangoSlice.style.display = 'none';
+                    bowls.style.display = 'none';
                     timer.style.display = 'none';
                     timerCounter.style.display = 'none';
                     scoreCounter.style.display = 'none';
                     scoreCounter1.style.display = 'none';
-                    bowls.style.display = 'none';
                 }, 500);
 
                 showLastScreen();
@@ -615,8 +616,10 @@
                 setTimeout(() => {
                     scoreResult.style.display = 'none';
                     scoreCounter.style.display = 'none';
+
                     bowls.style.display = 'none';
-                    
+                    mangoSlice.style.display="none"
+
                     lastScreen.style.display = 'block';
                     setTimeout(() => {
                         document.getElementById('product').style.animation = 'productTilt 1s ease-in-out alternate infinite';
